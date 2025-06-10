@@ -1,0 +1,37 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+import pandas as pd
+
+website = "https://www.thesun.co.uk/sport/football/"
+path = "/Users/Johann/Downloads/chromedriver"
+
+service = Service(executable_path=path)
+driver = webdriver.Chrome(service = service)
+driver.get(website)
+
+driver.implicitly_wait(15)
+
+containers = driver.find_elements(by = "xpath",value = '//div[contains(@class, "teaser__copy-container")]')
+titles = []
+links = []
+
+
+for i in containers:
+    try:
+        title = i.find_element(by = "xpath", value = './/a/h3').text
+        link = i.find_element(by = "xpath", value = './/a').get_attribute('href')
+        titles.append(title)
+        links.append(link)
+    except:
+        continue
+
+data_dict = {'title':titles,'link':links}
+data_headlines = pd.DataFrame(data_dict)
+data_headlines.to_csv('headline.csv',index=False)
+
+driver.quit()
+
+
+##title = i.find_element(by = "xpath", value = '//div[@class = "teaser__copy-container"]/a/h3').text
+##subtitle = i.find_element(by = "xpath", value = '//div[@class = "teaser__copy-container"]/a/p').text
+##link = i.find_element(by = "xpath", value = './a').get_attribute('href')
