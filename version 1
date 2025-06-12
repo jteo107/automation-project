@@ -1,12 +1,25 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import pandas as pd
+from datetime import datetime
+import os
+import sys
+
+app_path = os.path.dirname(sys.executable)
+now = datetime.now()
+##MMDDYYYY
+date = now.strftime("%m%d%Y")
 
 website = "https://www.thesun.co.uk/sport/football/"
 path = "/Users/Johann/Downloads/chromedriver"
 
+##headless mode##
+
+options = Options()
+options.headless = True
 service = Service(executable_path=path)
-driver = webdriver.Chrome(service = service)
+driver = webdriver.Chrome(service = service,options = options)
 driver.get(website)
 
 driver.implicitly_wait(15)
@@ -14,8 +27,6 @@ driver.implicitly_wait(15)
 containers = driver.find_elements(by = "xpath",value = '//div[contains(@class, "teaser__copy-container")]')
 titles = []
 links = []
-
-
 for i in containers:
     try:
         title = i.find_element(by = "xpath", value = './/a/h3').text
@@ -27,7 +38,9 @@ for i in containers:
 
 data_dict = {'title':titles,'link':links}
 data_headlines = pd.DataFrame(data_dict)
-data_headlines.to_csv('headline.csv',index=False)
+file_name = f'{date}-news.csv'
+final_path = os.path.join(app_path,file_name)
+data_headlines.to_csv(final_path,index=False)
 
 driver.quit()
 
@@ -35,3 +48,5 @@ driver.quit()
 ##title = i.find_element(by = "xpath", value = '//div[@class = "teaser__copy-container"]/a/h3').text
 ##subtitle = i.find_element(by = "xpath", value = '//div[@class = "teaser__copy-container"]/a/p').text
 ##link = i.find_element(by = "xpath", value = './a').get_attribute('href')
+
+
