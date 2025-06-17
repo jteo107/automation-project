@@ -1,0 +1,101 @@
+{
+    "Football": {
+      "NFL": {
+        "url": "https://www.nfl.com/news/",
+        "container_xpath": "//div[contains(@class, 'd3-l-col__col-4')]", 
+        "title_xpath": ".//h3",
+        "link_xpath": ".//a"
+      },
+      "XFL": {
+        "url": "https://www.theufl.com/news",
+        "container_xpath": "//div[contains(@class, 'news-card')]",
+        "title_xpath": ".//h2",
+        "link_xpath": ".//a"
+      },
+      "College Football": {
+        "url": "https://www.ncaa.com/sports/football/fbs",
+        "container_xpath": "//div[contains(@class, 'views-row')]",
+        "title_xpath": ".//h3",
+        "link_xpath": ".//a"
+      }
+    },
+    "Basketball": {
+      "NBA": {
+        "url": "https://www.nba.com/news",
+        "container_xpath": "//section//a[contains(@class, 'ArticleCard')]",
+        "title_xpath": ".//h2",
+        "link_xpath": "."
+      },
+      "WNBA": {
+        "url": "https://www.wnba.com/news/",
+        "container_xpath": "//div[contains(@class, 'ArticleCard')]",
+        "title_xpath": ".//h2",
+        "link_xpath": ".//a"
+      },
+      "EuroLeague": {
+        "url": "https://www.euroleaguebasketball.net/euroleague/news/",
+        "container_xpath": "//div[contains(@class, 'article-preview')]",
+        "title_xpath": ".//h2",
+        "link_xpath": ".//a"
+      },
+      "College Basketball": {
+        "url": "https://www.ncaa.com/news/basketball-men",
+        "container_xpath": "//div[contains(@class, 'views-row')]",
+        "title_xpath": ".//h3",
+        "link_xpath": ".//a"
+      }
+    },
+    "Baseball": {
+      "MLB": {
+        "url": "https://www.mlb.com/news",
+        "container_xpath": "//li[contains(@class, 'p-news-item')]",
+        "title_xpath": ".//h2",
+        "link_xpath": ".//a"
+      },
+      "NCAA Baseball": {
+        "url": "https://www.ncaa.com/sports/baseball/d1",
+        "container_xpath": "//div[contains(@class, 'views-row')]",
+        "title_xpath": ".//h3",
+        "link_xpath": ".//a"
+      }
+    },
+    "Soccer": {
+      "Premier League": {
+        "url": "https://www.premierleague.com/news",
+        "container_xpath": "//li[contains(@class, 'newsItem')]",
+        "title_xpath": ".//h4",
+        "link_xpath": ".//a"
+      },
+      "MLS": {
+        "url": "https://www.mlssoccer.com/news",
+        "container_xpath": "//div[contains(@class, 'article-card')]",
+        "title_xpath": ".//h2",
+        "link_xpath": ".//a"
+      }
+    },
+    "MMA": {
+      "UFC": {
+        "url": "https://www.ufc.com/news",
+        "container_xpath": "//div[contains(@class, 'c-card')]", 
+        "title_xpath": ".//h3",
+        "link_xpath": ".//a"
+      }
+    },
+    "Boxing": {
+      "BoxingScene": {
+        "url": "https://www.boxingscene.com/",
+        "container_xpath": "//div[contains(@class, 'teaser__copy-container')]",
+        "title_xpath": ".//a/h3",
+        "link_xpath": ".//a"
+      }
+    },
+    "Lacrosse": {
+      "PLL": {
+        "url": "https://premierlacrosseleague.com/news",
+        "container_xpath": "//article",
+        "title_xpath": ".//h2",
+        "link_xpath": ".//a"
+      }
+    }
+  }
+  
