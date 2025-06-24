@@ -6,96 +6,110 @@
         "title_xpath": ".//h3",
         "link_xpath": ".//a"
       },
-      "XFL": {
+      "UFL": {
         "url": "https://www.theufl.com/news",
-        "container_xpath": "//div[contains(@class, 'news-card')]",
-        "title_xpath": ".//h2",
-        "link_xpath": ".//a"
+        "container_xpath": "//a[contains(@class, 'news-card-item__title-link')]",
+        "title_xpath": ".",
+        "link_xpath": "."
       },
       "College Football": {
         "url": "https://www.ncaa.com/sports/football/fbs",
-        "container_xpath": "//div[contains(@class, 'views-row')]",
-        "title_xpath": ".//h3",
-        "link_xpath": ".//a"
+        "container_xpath": "//article[contains(@class, 'tile-article')]",
+        "title_xpath": ".//h2[contains(@class, 'tile-headline')]",
+        "link_xpath": ".//a[contains(@class, 'headline-link')]"
       }
     },
     "Basketball": {
       "NBA": {
         "url": "https://www.nba.com/news",
-        "container_xpath": "//section//a[contains(@class, 'ArticleCard')]",
-        "title_xpath": ".//h2",
+        "container_xpath": "//a[contains(@class, 'ArticleTile_tileHeadlineLink')]",
+        "title_xpath": ".//h4/span",
         "link_xpath": "."
-      },
+        },
       "WNBA": {
         "url": "https://www.wnba.com/news/",
-        "container_xpath": "//div[contains(@class, 'ArticleCard')]",
-        "title_xpath": ".//h2",
+        "container_xpath": "//div[contains(@class, '_newsAndArchiveTile__text_')]",
+        "title_xpath": ".//h4",
         "link_xpath": ".//a"
       },
       "EuroLeague": {
         "url": "https://www.euroleaguebasketball.net/euroleague/news/",
-        "container_xpath": "//div[contains(@class, 'article-preview')]",
-        "title_xpath": ".//h2",
-        "link_xpath": ".//a"
+        "container_xpath": "//a[contains(@class, 'card-link_link')]",
+        "title_xpath": ".//h3[contains(@class, 'card_title__')]",
+        "link_xpath": "."
       },
       "College Basketball": {
         "url": "https://www.ncaa.com/news/basketball-men",
-        "container_xpath": "//div[contains(@class, 'views-row')]",
-        "title_xpath": ".//h3",
-        "link_xpath": ".//a"
+        "container_xpath": "//article[contains(@class, 'tile-article')]",
+        "title_xpath": ".//h2[contains(@class, 'tile-headline')]",
+        "link_xpath": ".//a[contains(@class, 'headline-link')]"
       }
     },
     "Baseball": {
       "MLB": {
         "url": "https://www.mlb.com/news",
-        "container_xpath": "//li[contains(@class, 'p-news-item')]",
-        "title_xpath": ".//h2",
-        "link_xpath": ".//a"
+        "container_xpath": "//article[contains(@class, 'article-item')]",
+        "title_xpath": ".//h1[contains(@class, 'article-item__headline')]",
+        "link_xpath": ".//a[contains(@class, 'p-button__link')]"
       },
       "NCAA Baseball": {
         "url": "https://www.ncaa.com/sports/baseball/d1",
-        "container_xpath": "//div[contains(@class, 'views-row')]",
-        "title_xpath": ".//h3",
-        "link_xpath": ".//a"
+        "container_xpath": "//article[contains(@class, 'tile-article')]",
+        "title_xpath": ".//h2[contains(@class, 'tile-headline')]",
+        "link_xpath": ".//a[contains(@class, 'headline-link')]"
       }
     },
     "Soccer": {
       "Premier League": {
-        "url": "https://www.premierleague.com/news",
-        "container_xpath": "//li[contains(@class, 'newsItem')]",
-        "title_xpath": ".//h4",
-        "link_xpath": ".//a"
+        "url": "https://www.espn.com/soccer/league/_/name/eng.1",
+        "container_xpath": "//article[contains(@class, 'news-feed-item')]",
+        "title_xpath": ".//h1/a",
+        "link_xpath": ".//h1/a"
       },
       "MLS": {
         "url": "https://www.mlssoccer.com/news",
-        "container_xpath": "//div[contains(@class, 'article-card')]",
-        "title_xpath": ".//h2",
-        "link_xpath": ".//a"
+        "container_xpath": "//a[contains(@class, 'fm-card-wrap')]",
+        "title_xpath": ".//h2[contains(@class, 'fa-text__title')]",
+        "link_xpath": "."
+      },
+      "Champions League":{
+        "url" : "https://www.espn.com/soccer/league/_/name/uefa.champions",
+        "container_xpath": "//article[contains(@class, 'news-feed-item')]",
+        "title_xpath": ".//span[@class='headline']",
+        "link_xpath": ".//a[contains(@class, 'story-link')]"
+      },
+      "La Liga":{
+        "url": "https://www.espn.com/soccer/league/_/name/esp.1",
+        "container_xpath" : "//article[contains(@class, 'news-feed-item')]",
+        "title_xpath" : ".//span[@class='headline']",
+        "link_xpath": ".//a[contains(@class, 'story-link')]"
+
       }
+      
     },
     "MMA": {
       "UFC": {
         "url": "https://www.ufc.com/news",
-        "container_xpath": "//div[contains(@class, 'c-card')]", 
-        "title_xpath": ".//h3",
-        "link_xpath": ".//a"
+        "container_xpath": "//a[contains(@class, 'c-card--grid-card-trending')]", 
+        "title_xpath": ".//h3[contains(@class, 'c-card--grid-card-trending__headline')]",
+        "link_xpath": "."
       }
     },
-    "Boxing": {
-      "BoxingScene": {
-        "url": "https://www.boxingscene.com/",
-        "container_xpath": "//div[contains(@class, 'teaser__copy-container')]",
-        "title_xpath": ".//a/h3",
-        "link_xpath": ".//a"
-      }
-    },
-    "Lacrosse": {
-      "PLL": {
-        "url": "https://premierlacrosseleague.com/news",
-        "container_xpath": "//article",
-        "title_xpath": ".//h2",
-        "link_xpath": ".//a"
+    "Hockey": {
+      "NHL": {
+        "url": "https://www.nhl.com/news",
+        "container_xpath": "//a[article[contains(@class, 'nhl-c-card')]]",
+        "title_xpath": ".//h3[contains(@class, 'fa-text__title')]",
+        "link_xpath": "."
+      },
+      "College Hockey": {
+        "url": "https://www.ncaa.com/sports/icehockey-men/d1",
+        "container_xpath": "//article[contains(@class, 'tile-article')]",
+        "title_xpath": ".//h2[contains(@class, 'tile-headline')]",
+        "link_xpath": ".//a[contains(@class, 'headline-link')]"
       }
     }
+
   }
+  
   
