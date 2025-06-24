@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import json
 import pandas as pd
 from datetime import datetime
@@ -34,9 +37,9 @@ def get_preferences():
             print("Enter which leagues you would like notifications about (ALL for all leagues, STOP to stop, DISPLAY to see available leagues)")
             while True:
                 league = input("League: ").strip()
-                if league == "stop" or league == "STOP":
+                if league == "stop" or league == "STOP" or league == "Stop":
                     break
-                if league == "display" or league == "DISPLAY":
+                if league == "display" or league == "DISPLAY" or league == "Display":
                     print(f"Available leagues for {sport}:")
                     for l in leagues:
                         print(l)
@@ -64,10 +67,8 @@ def load_preferences():
         return get_preferences()
     
 
-preferences = get_preferences()
 
-def scrape():
-    global preferences
+def scrape(preferences):
     ##app_path = os.path.dirname(sys.executable)
     app_path = "/Users/Johann/sportsauto"
     now = datetime.now()
@@ -86,7 +87,7 @@ def scrape():
         for league in preferences[i]:
             website = sports[i][league]['url']
             driver.get(website)
-            driver.implicitly_wait(15)
+            waitforelement(driver, sports[i][league]['container_xpath'])
             containers = driver.find_elements(by = "xpath",value = sports[i][league]['container_xpath'])
             for j in containers:
                 try:
@@ -94,7 +95,7 @@ def scrape():
                     link = j.find_element(by = "xpath", value = sports[i][league]['link_xpath']).get_attribute('href')
                     titles.append(title)
                     links.append(link)
-                except:
+                except Exception as e:
                     continue
     data_dict = {'title':titles,'link':links}
     data_headlines = pd.DataFrame(data_dict)
@@ -104,13 +105,13 @@ def scrape():
     driver.quit()
     return
 
+def waitforelement(driver, xpath, timeout = 20):
+     WebDriverWait(driver, timeout).until(
+        EC.presence_of_element_located((By.XPATH, xpath))
+    )
+
+
+
 if __name__ == "__main__":
     preferences = load_preferences()
-    scrape()
-    print("Scraping completed. Check the output CSV file for the latest sports news.")
-
-    
-
-
-
-
+    scrape(preferences)
