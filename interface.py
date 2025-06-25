@@ -4,6 +4,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from dotenv import load_dotenv
+from email.message import EmailMessage
+load_dotenv()
+import smtplib
 import json
 import pandas as pd
 from datetime import datetime
@@ -13,13 +17,44 @@ import time
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PREF_FILE = "preferences.json"
+CONTACT_FILE = "contact.json"
 SPORTS_FILE = "sports.json"
 with open(SPORTS_FILE, "r") as file:
     sports = json.load(file)
 
-def get_preferences():
+def get_contact():
     print("Welcome to your personal sports news aggregator!\n Find the latest news from your favorite sports in one place.\n")
     time.sleep(3)
+    contact = {}
+    print("Please enter your email address: ")
+    email = input("Email: ").strip()
+    confirmed = False
+    print(f"Confirm email: {email}")
+    while(not confirmed):
+        verify = input("Confirm (yes/no): ").strip().lower()
+        if verify == "yes":
+            contact['email'] = email
+            confirmed = True
+        else:
+            print("Please enter your email address again: ")
+            email = input("Email: ").strip()
+            print(f"Confirm email: {email}")
+            verify = input("Confirm (yes/no): ").strip().lower()
+    with open("contact.json", "w") as file:
+        json.dump(contact, file, indent=4)
+    print("Contact information saved.")
+    return contact
+
+def load_contact():
+    if(os.path.exists(CONTACT_FILE)):
+        with open(CONTACT_FILE, "r") as file:
+            contact = json.load(file)
+            return contact
+    else:
+        return get_contact()
+
+
+def get_preferences():
     preferences = {}
     global sports
     print("Available Sports: \n")
@@ -70,14 +105,14 @@ def load_preferences():
 
 def scrape(preferences):
     ##app_path = os.path.dirname(sys.executable)
-    app_path = "/Users/Johann/sportsauto"
+    app_path = os.getenv("APP_PATH")
     now = datetime.now()
 ##MMDDYYYY
     date = now.strftime("%m%d%Y")
-    path = "/Users/Johann/Downloads/chromedriver"
+    chromepath = os.getenv("CHROME_PATH")
     options = Options()
     options.headless = True
-    service = Service(executable_path=path)
+    service = Service(executable_path=chromepath)
     driver = webdriver.Chrome(service = service,options = options)
     titles = []
     links = []
@@ -109,9 +144,42 @@ def waitforelement(driver, xpath, timeout = 20):
      WebDriverWait(driver, timeout).until(
         EC.presence_of_element_located((By.XPATH, xpath))
     )
+     
+def send_email(contact):
+    email = contact['email']
+    sender = os.getenv("SENDER_EMAIL")
+    password = os.getenv("SENDER_PASSWORD")
+    msg = EmailMessage()
+    msg['From'] = sender
+    msg['To'] = email
+    msg['Subject'] = "Your Daily Sports News!"
+    body = "Today's Headlines and stories:\n\n"
+    msg.set_content(body)
+    app_path = os.getenv("APP_PATH")
+    now = datetime.now()
+    date = now.strftime("%m%d%Y")
+    file_name = f'{date}--news.csv'
+    final_path = os.path.join(app_path, file_name)
 
+    if( os.path.exists(final_path)):
+        with open(final_path,"rb") as file:
+            file_content = file.read()
+            file_name = os.path.basename(final_path)
+            msg.add_attachment(file_content, maintype='text', subtype='csv', filename=file_name)
+    else:
+        msg.set_content("No news available for today. Please check back later.")
+    try:
+        server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        server.login(sender, password)
+        server.send_message(msg)
+        print(f"Email sent to {email}")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+    server.quit()
 
 
 if __name__ == "__main__":
+    contact = load_contact()
     preferences = load_preferences()
     scrape(preferences)
+    send_email(contact)
