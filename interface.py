@@ -15,12 +15,18 @@ import os
 import sys
 import time
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PREF_FILE = "preferences.json"
-CONTACT_FILE = "contact.json"
-SPORTS_FILE = "sports.json"
+if getattr(sys, 'frozen', False):
+    BASE_DIR = sys._MEIPASS
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+SPORTS_FILE = os.path.join(BASE_DIR, "sports.json")
 with open(SPORTS_FILE, "r") as file:
     sports = json.load(file)
+
+PREF_FILE = "preferences.json"
+CONTACT_FILE = "contact.json"
+
 
 def get_contact():
     print("Welcome to your personal sports news aggregator!\n Find the latest news from your favorite sports in one place.\n")
@@ -62,8 +68,8 @@ def get_preferences():
         print(sport)
     print("Enter each sport you would like notifications about (STOP to stop)")
     while True:
-        sport = input("Sport: ").strip()
-        if sport == "stop" or sport == "STOP":
+        sport = input("Sport: ").strip().title()
+        if sport == "Stop":
             break
         if sport in sports:
             preferences[sport] = {}
