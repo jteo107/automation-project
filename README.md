@@ -10,4 +10,12 @@ How to Install and Run:
 2. Run pyinstaller --onefile interface.py in terminal
 3. Run ./dist/interface
 
+Languages, Libraries, and Tools:
+- Python
+- Selenium Webdriver
+- Cron
+- JSON
+- Pandas
+- smtpLib
+
 
